@@ -1,5 +1,5 @@
 <?php
-define('CANDYCANE_VERSION', '0.9.0');
+define('CANDYCANE_VERSION', '0.9.1');
 Configure::write('app_title', 'Candycane');
 setlocale(LC_CTYPE,'C');
 
@@ -26,10 +26,33 @@ ClassRegistry::addObject('MenuContainer',$menu_container);
 ClassRegistry::addObject('PluginContainer',$pluginContainer);
 ClassRegistry::addObject('SettingContainer',$settingContainer);
 ClassRegistry::addObject('ThemeContainer',$themeContainer);
-foreach( glob(APP.'Plugin/Cc*/init.php') as $val){
+
+$pluginPaths = glob(APP.'Plugin/Cc*/init.php');
+if ($pluginPaths === false) {
+    $pluginPaths = array();
+}
+foreach( $pluginPaths as $val){
 	include_once(realpath($val));
 }
 
+// Enable the Dispatcher filters for plugin assets, and
+// CacheHelper.
+Configure::write('Dispatcher.filters', array(
+    'AssetDispatcher',
+    'CacheDispatcher'
+));
+
+// Add logging configuration.
+CakeLog::config('debug', array(
+    'engine' => 'FileLog',
+    'types' => array('notice', 'info', 'debug'),
+    'file' => 'debug',
+));
+CakeLog::config('error', array(
+    'engine' => 'FileLog',
+    'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+    'file' => 'error',
+));
 
 // by PHP_Compat 1.6.0a2
 function php_compat_http_build_query($formdata, $numeric_prefix = null)

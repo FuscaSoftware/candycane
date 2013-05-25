@@ -918,7 +918,7 @@ msgstr "最小値 - 最大値の長さ"
 
 # general_fmt_datetime_short
 msgid "%%b %%d, %%I:%%M %%p"
-msgstr "%%b %%d, %%H:%%M %%p"
+msgstr "%%b %%d, %%I:%%M %%p"
 
 # label_list
 msgid "List"
@@ -933,7 +933,7 @@ msgid "Start"
 msgstr "開始日"
 
 # field_start_date 2
-msgid "start_date"
+msgid "Start date"
 msgstr "開始日"
 
 # field_password_confirmation
@@ -1523,6 +1523,10 @@ msgid "%% Done"
 msgstr "進捗 %"
 
 # field_done_ratio
+msgid "Done"
+msgstr "進捗"
+
+# field_done_ratio
 msgid "done_ratio"
 msgstr "進捗"
 
@@ -1842,6 +1846,14 @@ msgstr "関係している"
 msgid "Login"
 msgstr "ログイン"
 
+# field_admin
+msgid "Admin"
+msgstr "管理者"
+
+# field_mail
+msgid "Mail"
+msgstr "メールアドレス"
+
 # mail_subject_lost_password
 msgid "Your %s password"
 msgstr "%sパスワード"
@@ -1960,7 +1972,7 @@ msgstr "プロジェクト"
 
 # field_comments_sorting
 msgid "Display comments"
-msgstr "コメントを表示"
+msgstr "コメントの表示順"
 
 # field_comments
 msgid "Comment"
@@ -2218,7 +2230,7 @@ msgstr "メッセージ"
 
 # general_fmt_time
 msgid "%I:%M %p"
-msgstr "%H:%M %p"
+msgstr "%I:%M %p"
 
 # text_tip_task_begin_day
 msgid "task beginning this day"
@@ -2382,7 +2394,7 @@ msgstr "プラグイン"
 
 # general_fmt_datetime
 msgid "%%m/%%d/%%Y %%I:%%M %%p"
-msgstr "%%Y年%%m月%%d日 %%H:%%M %%p"
+msgstr "%%Y年%%m月%%d日 %%I:%%M %%p"
 
 # label_custom_field
 msgid "Custom field"
@@ -2716,23 +2728,47 @@ msgstr "チケット"
 msgid "Install candycane"
 msgstr "candycane インストール"
 
+msgid "PDO extension is loaded."
+msgstr "PDO拡張モジュールがロードされています。"
+
+msgid "PDO extension is NOT loaded."
+msgstr "PDO拡張モジュールがロードされていません。"
+
 msgid "Your tmp directory is writable."
-msgstr "tmpディレクトリは書込み可能です。"
+msgstr "tmpディレクトリが書込み可能です。"
 
 msgid "Your tmp directory is NOT writable."
 msgstr "tmpディレクトリが書込み不可能です。"
 
-msgid "Your config directory is writable."
-msgstr "configディレクトリが書込み可能です。"
+msgid "Your Config directory is writable."
+msgstr "Configディレクトリが書込み可能です。"
 
-msgid "Your config directory is NOT writable."
-msgstr "configディレクトリが書込み不可能です。"
+msgid "Your Config directory is NOT writable."
+msgstr "Configディレクトリが書込み不可能です。"
 
 msgid "Your files directory is writable."
 msgstr "filesディレクトリが書込み可能です。"
 
 msgid "Your files directory is NOT writable."
 msgstr "filesディレクトリが書込み不可能です。"
+
+msgid "Your Plugin directory is writable."
+msgstr "Pluginディレクトリが書き込み可能です。"
+
+msgid "Your Plugin directory is NOT writable."
+msgstr "Pluginディレクトリが書き込み不可能です。"
+
+msgid "Your routing  is working well."
+msgstr "ルーティングが機能しています。"
+
+msgid "Your routing is NOT working well."
+msgstr "ルーティングが機能していません。"
+
+msgid "Please activate mod_rewrite and .htaccess."
+msgstr "mod_rewriteと.htaccessを有効化してください。"
+
+msgid "Or uncomment \"//Configure::write('App.baseUrl', env('SCRIPT_NAME'));\" in app/Config/core.php and remove all .htaccess."
+msgstr "もしくは、app/Config/core.phpの\"//Configure::write('App.baseUrl', env('SCRIPT_NAME'));\"のコメントアウトを外し、.htaccessをすべて削除してください。"
 
 msgid "Installation cannot continue as minimum requirements are not met."
 msgstr "条件を満たすまでインストールは続行できません。"
@@ -2764,8 +2800,8 @@ msgstr "あなたが設定したデータベースに初期データをロード
 msgid "Click here to build your database"
 msgstr "クリックでデータベースを構築します"
 
-msgid "Delete the installation directory <strong>/app/plugins/install</strong>."
-msgstr "インストール用のディレクトリを削除してください。 <strong>/app/plugins/install</strong>"
+msgid "Delete the installation directory <strong>/app/Plugin/install</strong>."
+msgstr "インストール用のディレクトリを削除してください。 <strong>/app/Plugin/install</strong>"
 
 msgid "Click here to delete installation files"
 msgstr "クリックでインストール用のファイルを削除します"

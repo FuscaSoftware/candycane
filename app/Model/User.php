@@ -52,6 +52,11 @@ class User extends AppModel {
 			'dependent' => true,
 			'conditions' => "action='feeds'",
 			'external' => true),
+		'ApiToken' => array(
+			'className' => 'Token',
+			'dependent' => true,
+			'conditions' => "action='api'",
+			'external' => true),
 	);
 
 #  belongs_to :auth_source
@@ -199,7 +204,7 @@ class User extends AppModel {
   function rss_key($user_id) {
     $token = $this->RssToken->find('first', array('conditions'=>array('action'=>'feeds', 'user_id'=>$user_id), 'fields'=>array('value')));
     // TODO �Ȃ�������쐬����B
-    return $token['RssToken']['value'];
+    return Hash::get($token, 'RssToken.value');
   }
 #  
 #  # Return an array of project ids for which the user has explicitly turned mail notifications on
@@ -245,6 +250,16 @@ class User extends AppModel {
     return (!empty($token) && ($token['User']['status'] == USER_STATUS_ACTIVE)) ? $token['User'] : null;
   }
 
+  public function find_by_api_key($key) {
+    $token = $this->ApiToken->find('first', array('conditions'=>array('value'=>$key)));
+    $user = (!empty($token) && ($token['User']['status'] == USER_STATUS_ACTIVE)) ? $token['User'] : null;
+
+    if ($user !== null) {
+      $user['logged'] = true; // @todo fixme
+    }
+    return $user;
+  }
+
 /**
  * Find User by ID Logged
  *
@@ -264,6 +279,7 @@ class User extends AppModel {
 		$user['User']['name'] = $user['User']['login']; // @todo fixme
 		$user['User']['memberships'] = $user['Membership'];
 		$user['User']['RssToken'] = $user['RssToken'];
+		$user['User']['ApiToken'] = $user['ApiToken'];
 		$user['User']['UserPreference'] = $user['UserPreference'];
 		return $user['User'];
 	}

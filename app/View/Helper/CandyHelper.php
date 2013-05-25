@@ -7,6 +7,7 @@
  * @package candycane
  * @subpackage candycane.views.helpers
  */
+App::uses('AppHelper','View/Helper');
 class CandyHelper extends AppHelper {
 
 /**
@@ -592,7 +593,7 @@ class CandyHelper extends AppHelper {
 		} else {
 			$time_tag = $this->Html->link(
 				$this->distance_of_time_in_words(time(), $created),
-				array('controller' => 'projects', 'action' => 'activity', 'id' => $project['Project']['id'], 'from' => $created),
+				array('controller' => 'projects', 'action' => 'activity', 'project_id' => $project['Project']['identifier'], 'from' => $created),
 				array('title' => $this->format_time($created)));
 		}
 		#    time_tag = @project.nil? ? content_tag('acronym', distance_of_time_in_words(Time.now, created), :title => format_time(created)) :
@@ -1153,7 +1154,7 @@ function breadcrumb($args)
             $link = $this->Html->link("#${oid}",
                                       array('controller' => 'issues',
                                             'action' => 'show',
-                                            'id' => $oid),
+                                            $oid),
                                       array(
 										'class' => $class,
                                          'title' =>  ''/*"#{truncate(issue.subject, 100)} (#{issue.status.name})")*/));
@@ -1584,8 +1585,9 @@ function breadcrumb($args)
     return $options;
   }
 	
-  public function project_icon($project = null) {
-	  $url = '/themed/kuma/img/kuma-48-square.png';
+  public function project_icon($project = null, $as_url = false) {
+
+	  $url = Router::url('/', true) . 'themed/kuma/img/kuma-48-square.png';
 	  if ( isset($project['CustomValue']) && is_array($project['CustomValue']) ) {
 		  foreach ($project['CustomValue'] as $row) {
 			  if ($row['CustomField']['name'] == 'projecticon') {
@@ -1593,9 +1595,14 @@ function breadcrumb($args)
 			  }
 		  }
 	  }
+
+	  if ($as_url == true) {
+		  return $url;
+	  }
 	  return $this->Html->image(
 		$url,
 		array(
+//			'fullBase' => true,
 			'class' => 'project-icon',
 			'alt' => 'kuma',
 		)
