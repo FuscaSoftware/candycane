@@ -12,9 +12,21 @@ vendors/simpletest
 .cache
 .project
 .settings
+.buildpath
 nbproject
 .idea
 .DS_Store
 
 ## Allow 'empty' files
 !empty
+
+## Locale files
+*.mo
+
+## Composer
+composer.phar
+composer.lock
+vendor
+
+## build artifacts
+build

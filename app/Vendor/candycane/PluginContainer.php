@@ -8,7 +8,7 @@ class PluginContainer extends Object {
 
 	protected $__entries = array();
 
-	protected $__entries_url = 'https://raw.github.com/gist/2766952/entries2.json';
+	protected $__entries_url = 'https://raw.github.com/yandod/candycane-plugins/master/entries2.json';
 
 	public function  __construct() {
 		$this->__init();
@@ -131,6 +131,10 @@ class PluginContainer extends Object {
 			return $this->addEntry($entry);
 		}
 		return false;
+	}
+
+	public function upgrade($id) {
+		return $this->uninstall($id) && $this->install($id);
 	}
 
 	public function uninstall($id) {

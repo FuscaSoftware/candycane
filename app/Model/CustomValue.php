@@ -29,7 +29,10 @@ class CustomValue extends AppModel
   }
 
   function beforeValidate($options = array()) {
-    $custom_field = $this->CustomField->alias;
+    if (!isset($this->data[$this->CustomField->alias])) {
+        return true;
+    }
+    $custom_field = $this->data[$this->CustomField->alias];
     # Format specific validations
     switch ($custom_field['field_format']) {
     case 'int' :
@@ -55,16 +58,25 @@ class CustomValue extends AppModel
   }
   
   function validate_value_regexp($data) {
-    $custom_field = $this->CustomField->read(null, $this->data[$this->name]['custom_field_id']);
-    $custom_field = $custom_field['CustomField'];
-    if (!empty($custom_field['regexp'])) {
-      return preg_match("/{$custom_field['regexp']}/u", $this->data[$this->name]['value']);
+    if (isset($this->data[$this->name]['custom_field_id']) && !empty($this->data[$this->name]['custom_field_id'])) {
+      $backup = $this->CustomField->data;
+
+      $custom_field = $this->CustomField->read(null, $this->data[$this->name]['custom_field_id']);
+      $custom_field = $custom_field['CustomField'];
+
+      $this->CustomField->data = $backup;
+      if (!empty($custom_field['regexp'])) {
+        return preg_match("/{$custom_field['regexp']}/u", $this->data[$this->name]['value']);
+      }
     }
     return true;
   }
 
   function validate_value_range($data) {
-    $custom_field = $this->CustomField->alias;
+    if (!isset($this->data[$this->CustomField->alias])) {
+        return true;
+    }
+    $custom_field = $this->data[$this->CustomField->alias];
     if ($custom_field['min_length'] > 0 and strlen($this->data[$this->name]['value']) < $custom_field['min_length']) {
       return false;
     }
@@ -76,7 +88,10 @@ class CustomValue extends AppModel
   
   function validate_value_format($data) {
     $ret = true;
-    $custom_field = $this->CustomField->alias;
+    if (!isset($this->data[$this->CustomField->alias])) {
+        return true;
+    }
+    $custom_field = $this->data[$this->CustomField->alias];
     # Format specific validations
     switch ($custom_field['field_format']) {
     case 'int' :
